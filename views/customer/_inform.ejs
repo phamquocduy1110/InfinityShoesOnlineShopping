@@ -1,0 +1,13 @@
+<div class="border-bottom">
+  <div class="float-left">
+    <%  if (session.customer) {  %>
+    Hello <b><%=session.customer.name%></b> | <a href="./logout">Logout</a> | <a href="./myprofile">My profile</a> | <a href="./myorders">My orders</a>
+    <%  } else {  %>
+    <a href="./login">Login</a> | <a href="./signup">Sign-up</a>
+    <%  } %>
+  </div>
+  <div class="float-right">
+    <a href="./mycart">My cart</a> have <b><%= (session.mycart) ? session.mycart.length : 0 %></b> items
+  </div>
+  <div class="float-clear"></div>
+</div>

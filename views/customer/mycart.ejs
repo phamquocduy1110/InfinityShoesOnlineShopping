@@ -1,0 +1,47 @@
+<html>
+
+<head>
+  <link href="/css/styles.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body class="customer">
+  <%- include('./_menu.ejs') %>
+  <%- include('./_inform.ejs') %>
+  <div class="align-center">
+    <h2 class="text-center">ITEM LIST</h2>
+    <table class="datatable" border="1">
+      <tr class="datatable">
+        <th>No.</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+      <%  for (var [i, item] of session.mycart.entries()) { %>
+      <tr class="datatable">
+        <td><%=(i+1)%></td>
+        <th><%=item.product._id%></th>
+        <td><%=item.product.name%></td>
+        <td><%=item.product.category.name%></td>
+        <td><img src="data:image/jpg;base64,<%=item.product.image%>" width="70" height="70" /></td>
+        <td><%=item.product.price%></td>
+        <td><%=item.quantity%></td>
+        <td><%=item.product.price * item.quantity%></td>
+        <td><a href="./remove2cart?id=<%=item.product._id%>">Remove</a></td>
+      </tr>
+      <%  } %>
+      <tr>
+        <td colspan="6"></td>
+        <td>Total</td>
+        <td><%=total%></td>
+        <td><a href="./checkout" onclick="return confirm('ARE YOU SURE?')">CHECKOUT</a></td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>

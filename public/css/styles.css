@@ -1,0 +1,45 @@
+@import url("./menu.css");
+@import url("./datatable.css");
+
+body.customer {
+    width: 1150px;
+    height: fit-content;
+    margin: 0px auto;
+    /* border: 1px solid black; */
+}
+
+body.admin {
+    width: fit-content;
+    height: fit-content;
+    margin: 0px auto;
+    /* border: 1px solid black; */
+}
+
+div.inline {
+    display: inline-block;
+    /* border: 1px solid black; */
+}
+
+figure.caption-right {
+    display: flex;
+    align-items: center;
+}
+
+.align-center {
+    width: fit-content;
+    margin: 0px auto;
+    /* border: 1px solid black; */
+}
+
+.align-valign-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0px 20px 0px 20px;
+    border: 1px solid black;
+}
+
+.text-center {
+    text-align: center;
+}

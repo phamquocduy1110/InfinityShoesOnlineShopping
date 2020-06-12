@@ -1,0 +1,19 @@
+<div class="border-bottom">
+  <div class="float-left">
+    <ul class="menu">
+      <li class="menu"><a href="./home">Home</a></li>
+      <%  if (typeof(cats) !== 'undefined') { for (var cat of cats) { %>
+      <li class="menu"><a href="./listproduct?catID=<%=cat._id%>"><%=cat.name%></a></li>
+      <%  } } %>
+    </ul>
+  </div>
+  <div class="float-right">
+    <form action="./search" method="POST" class="search">
+      <input type="search" name="txtKeyword" placeholder="Enter keyword" class="keyword" required
+        oninvalid="this.setCustomValidity('Keyword không để trống')"
+        oninput="this.setCustomValidity('')" />
+      <input type="submit" value="SEARCH" />
+    </form>
+  </div>
+  <div class="float-clear"></div>
+</div>

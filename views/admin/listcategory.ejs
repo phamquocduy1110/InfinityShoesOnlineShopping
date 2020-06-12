@@ -1,0 +1,60 @@
+<html>
+
+<head>
+  <link href="/css/styles.css" type="text/css" rel="stylesheet" />
+  <script>
+    function details(id, name) {
+      document.getElementById("txtID").value = id;
+      document.getElementById("txtName").value = name;
+      document.getElementById("btnUpdate").style.display = "inline";
+      document.getElementById("btnDelete").style.display = "inline";
+    }
+  </script>
+</head>
+
+<body class="admin">
+  <%- include('./_menu.ejs') %>
+  <div class="float-left">
+    <h2 class="text-center">CATEGORY LIST</h2>
+    <table class="datatable" border="1">
+      <tr class="datatable">
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+      <%  for (var item of cats) {  %>
+      <tr class="datatable" onclick="details('<%=item._id%>', '<%=item.name%>')">
+        <th><%=item._id%></th>
+        <td><%=item.name%></td>
+      </tr>
+      <%  } %>
+    </table>
+  </div>
+  <div class="inline" style="width: 40px"></div>
+  <div class="float-right">
+    <h2 class="text-center">CATEGORY DETAIL</h2>
+    <form method="POST">
+      <table>
+        <tr>
+          <td>ID</td>
+          <td><input type="text" id="txtID" name="txtID" readonly /></td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td><input type="text" id="txtName" name="txtName" required />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" formaction="./addcategory" value="ADD NEW" />
+            <input type="submit" formaction="./updatecategory" value="UPDATE" id="btnUpdate" style="display: none" />
+            <input type="submit" formaction="./deletecategory" value="DELETE" id="btnDelete" style="display: none" onclick="return confirm('ARE YOU SURE?')" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="float-clear"></div>
+</body>
+
+</html>

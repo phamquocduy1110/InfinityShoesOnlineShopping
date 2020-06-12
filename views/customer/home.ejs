@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  <link href="/css/styles.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body class="customer">
+  <%- include('./_menu.ejs') %>
+  <%- include('./_inform.ejs') %>
+  <div class="align-center">
+    <h2 class="text-center">NEW PRODUCTS</h2>
+    <%  for (var prod of newprods) { %>
+    <div class="inline">
+      <figure>
+        <a href="./details?id=<%=prod._id%>"><img src="data:image/jpg;base64,<%=prod.image%>" width="300px" height="300px" /></a>
+        <figcaption class="text-center"><%=prod.name%><br />Price: <%=prod.price%></figcaption>
+      </figure>
+    </div>
+    <%  } %>
+  </div>
+  <%  if (hotprods) { %>
+  <div class="align-center">
+    <h2 class="text-center">HOT PRODUCTS</h2>
+    <%  for (var prod of hotprods) { %>
+    <div class="inline">
+      <figure>
+        <a href="./details?id=<%=prod._id%>"><img src="data:image/jpg;base64,<%=prod.image%>" width="300px" height="300px" /></a>
+        <figcaption class="text-center"><%=prod.name%><br />Price: <%=prod.price%></figcaption>
+      </figure>
+    </div>
+    <%  } %>
+  </div>
+  <%  } %>
+</body>
+
+</html>

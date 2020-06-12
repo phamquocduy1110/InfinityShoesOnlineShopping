@@ -1,0 +1,64 @@
+<html>
+
+<head>
+  <link href="/css/styles.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body class="customer">
+  <%- include('./_menu.ejs') %>
+  <%- include('./_inform.ejs') %>
+  <%  if (orders) { %>
+  <div class="align-center">
+    <h2 class="text-center">ORDER LIST</h2>
+    <table class="datatable" border="1">
+      <tr class="datatable">
+        <th>ID</th>
+        <th>Creation date</th>
+        <th>Cust.name</th>
+        <th>Cust.phone</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+      <%  for (var item of orders) { %>
+      <tr class="datatable" onclick="window.location='./myorders?id=<%=item._id%>'">
+        <th><%=item._id%></th>
+        <td><%=new Date(item.cdate).toLocaleString()%></td>
+        <td><%=item.customer.name%></td>
+        <td><%=item.customer.phone%></td>
+        <td><%=item.total%></td>
+        <td><%=item.status%></td>
+      </tr>
+      <%  } %>
+    </table>
+  </div>
+  <%  } %>
+  <%  if (order) { %>
+  <div class="align-center">
+    <h2 class="text-center">ORDER DETAIL</h2>
+    <table class="datatable" border="1">
+      <tr class="datatable">
+        <th>No.</th>
+        <th>Prod.ID</th>
+        <th>Prod.name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+      </tr>
+      <%  for (var [i, item] of order.items.entries()) {  %>
+      <tr class="datatable">
+        <td><%=(i+1)%></td>
+        <td><%=item.product._id%></td>
+        <td><%=item.product.name%></td>
+        <td><img src="data:image/jpg;base64,<%=item.product.image%>" width="70" height="70" /></td>
+        <td><%=item.product.price%></td>
+        <td><%=item.quantity%></td>
+        <td><%=item.product.price * item.quantity%></td>
+      </tr>
+      <%  } %>
+    </table>
+  </div>
+  <%  } %>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<html>
+
+<head>
+  <link href="/css/styles.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body class="customer">
+  <%- include('./_menu.ejs') %>
+  <%- include('./_inform.ejs') %>
+  <div class="align-center">
+    <h2 class="text-center">PRODUCT DETAILS</h2>
+    <figure class="caption-right">
+      <img src="data:image/jpg;base64,<%=prod.image%>" width="400" height="400" />
+      <figcaption>
+        <form action="./add2cart" method="POST">
+          <table>
+            <tr>
+              <td align="right">ID:</td>
+              <td><%=prod._id%></td>
+            <tr>
+            <tr>
+              <td align="right">Name:</td>
+              <td><%=prod.name%></td>
+            <tr>
+            <tr>
+              <td align="right">Price:</td>
+              <td><%=prod.price%></td>
+            <tr>
+            <tr>
+              <td align="right">Category:</td>
+              <td><%=prod.category.name%></td>
+            <tr>
+            <tr>
+              <td align="right">Quantity:</td>
+              <td><input type="number" name="txtQuantity" value="1" min="1" max="99" required /></td>
+            <tr>
+            <tr>
+              <td><input type="hidden" name="txtID" value="<%=prod._id%>" /></td>
+              <td><input type="submit" value="ADD TO CART" /></td>
+            </tr>
+          </table>
+        </form>
+      </figcaption>
+    </figure>
+  </div>
+</body>
+
+</html>
