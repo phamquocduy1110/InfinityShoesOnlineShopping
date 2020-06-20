@@ -1,11 +1,14 @@
 @import url("./menu.css");
 @import url("./datatable.css");
 
-body.customer {
-    width: 1150px;
-    height: fit-content;
-    margin: 0px auto;
-    /* border: 1px solid black; */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("LoginBackground.jpg");
+    background-position: center;
+    font-family: sans-serif;
+    background-size: cover;
 }
 
 body.admin {
@@ -26,9 +29,9 @@ figure.caption-right {
 }
 
 .align-center {
-    width: fit-content;
-    margin: 0px auto;
-    /* border: 1px solid black; */
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
 }
 
 .align-valign-center {

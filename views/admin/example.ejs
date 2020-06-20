@@ -1,0 +1,39 @@
+<%  for (var item of prods) {  %>
+    <tr class="datatable" onclick="details(
+      '<%=item.ProductID%>', 
+      '<%=item.Details%>', 
+      '<%=item.Name%>', 
+      '<%=item.image%>', 
+      '<%=item.Price%>', 
+      '<%=item.Inventory%>',
+      '<%=item.Size%>',
+      '<%=item.Weight%>',
+      '<%=item.Color%>',
+      '<%=item.Brand%>',
+      '<%=item.category.id%>'
+    )">
+    <th><%=item._id%></th>
+    <td><%=item.Details%></td>
+    <td><%=item.Name%></td>
+    <td><%=item.Price%></td>
+    <td><%=item.Inventory%></td>
+    <td><%=item.Size%></td>
+    <td><%=item.Weight%></td>
+    <td><%=item.Color%></td>
+    <td><%=item.Brand%></td>
+    <td><%=new Date(item.cdate).toLocaleString()%></td>
+    <td><%=item.category.name%></td>
+    <td><img src="data:image/jpg;base64,<%=item.image%>" width="100" height="100" /></td>
+    </tr>
+    <%  } %>
+    <!-- pagination -->
+    <tr>
+      <td colspan="6">
+        <%  for (var index = 1; index <= noPages; index++) {
+              if (index == curPage) { %>
+        | <b><%=index%></b> |
+        <%    } else {  %>
+        | <a href="./listproduct?page=<%=index%>"><%=index%></a> |
+        <%    } } %>
+      </td>
+    </tr>

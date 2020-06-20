@@ -81,6 +81,7 @@ router.get('/listproduct', async function (req, res) {
   // get data
   var categories = await CategoryDAO.selectAll();
   var products = await ProductDAO.selectAll();
+  console.table(products);
   // pagination
   var sizePage = 4;
   var noPages = Math.ceil(products.length / sizePage);
@@ -89,8 +90,14 @@ router.get('/listproduct', async function (req, res) {
   var offset = (curPage - 1) * sizePage;
   products = products.slice(offset, offset + sizePage);
   // render view
-  res.render('../views/admin/listproduct.ejs', { cats: categories, prods: products, noPages: noPages, curPage: curPage });
+  res.render('../views/admin/listproduct.ejs', { prods: products, noPages: noPages, curPage: curPage });
 });
+
+router.get('/addproduct', async function (req, res) {
+  var categories = await CategoryDAO.selectAll();
+  res.render('admin/addproduct', {categories});
+});
+
 router.post('/addproduct', upload.single('fileImage'), async function (req, res) {
   var name = req.body.txtName;
   var price = parseInt(req.body.txtPrice);

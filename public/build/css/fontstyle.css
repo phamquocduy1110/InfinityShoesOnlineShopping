@@ -1,0 +1,24 @@
+p {
+    font-size: x-large;
+    color: black;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    margin-bottom: 16px;
+    font-size: large;
+    width: 50%;
+}
+
+select {
+    font-size: large;
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+input[type="submit"] {
+    font-size: 16px;
+}

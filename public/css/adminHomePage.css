@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("/images/AdminBackground.jpg");
+    background-position: center;
+    font-family: sans-serif;
+    background-size: cover;
+}

@@ -1,0 +1,125 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+   <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../build/css/fontstyle.css" rel="stylesheet">
+
+    <script>
+      function previewImage(input) {
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+          document.getElementById("imgProduct").src = evt.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+      
+      function details(id, Name, BasicInformation, Price, Size, category, Brand, ProductID) {
+        document.getElementById("txtID").value = id;
+        document.getElementById("txtName").value = Name;
+        document.getElementById("txtBasicInformation").value = BasicInformation;
+        document.getElementById("txtPrice").value = Price;
+        document.getElementById("txtSize").value = Size;
+        document.getElementById("cmbCategory").value = category;
+        document.getElementById("txtBrand").value = Brand;
+        document.getElementById("txtProductID").value = ProductID;
+        document.getElementById("imgProduct").src = "data:image/jpg;base64," + image;
+        document.getElementById("btnUpdate").style.display = "inline";
+        document.getElementById("btnDelete").style.display = "inline";
+      }
+    </script>
+  </head>
+  <body class="nav-md">
+    <%- include('./_menuleft.ejs') %>
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Add new product</small></h3>
+              </div>
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row" style="display: block;">
+                  <div class="x_content">
+                    <div class="table-responsive">
+                      <form method="POST" enctype="multipart/form-data">
+                        <table class="table table-striped jambo_table bulk_action">
+                          <thead>
+                            <tr class="headings">
+                              <p>ID</p>
+                              <input type="text" id="txtID" name="txtID" readonly />
+                              <p>Name</p>
+                              <input type="text" id="txtName" name="txtName" placeholder="Enter name product" required>
+                              <p>Basic information</p>
+                              <input type="text" id="txtBasicInformation" name="txtBasicInformation" placeholder="Enter information of product" required>
+                              <p>Price</p>
+                              <input type="text" id="txtPrice" name="txtPrice" placeholder="Enter price" required>
+                              <p>Size</p>
+                              <input type="text" id="txtPrice" name="txtPrice" placeholder="Enter size" required>
+                              <p>Category</p>
+                              <select id="cmbCategory" name="cmbCategory">
+                                  <%  for (var item of categories) {  %>
+                                  <option value="<%=item._id%>"><%=item.Name%></option>
+                                  <%  } %> 
+                              </select>
+                              <p>Brand</p>
+                              <input type="text" id="txtBrand" name="txtBrand" placeholder="Enter brand if product" required>
+                              <p>Product ID</p>
+                              <input type="text" id="txtProductID" name="txtProductID" placeholder="Enter product ID" required>
+                          </thead>
+                        </table>
+                        <input type="submit" value="Add product" />
+                      </form>
+                      <a href="./listproduct"><input type="submit" value="Back to product list" /></a>
+                    </div>						
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+  </body>
+</html>
