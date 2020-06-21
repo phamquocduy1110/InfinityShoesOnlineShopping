@@ -198,8 +198,8 @@ router.get('/updateproduct', async function (req, res) {
 });
 
 router.get('/orderdetails', async function (req, res) {
-  var categories = await OrderDAO.selectAll();
-  var orders = await OrderDAO.selectByCustID(req.query.id);
+  var categories = await OrdertDAO.selectAll();
+  var orders = await OrderDAO.selectByID(req.query.id);
   res.render('admin/orderdetails', {categories, orders});
 });
 

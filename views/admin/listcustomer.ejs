@@ -102,14 +102,14 @@
 
                             <tbody>
                               <%  for (var item of orders) { %>
-                              <tr class="datatable" onclick="window.location='./listcustomer?cid=<%=custID%>&oid=<%=item._id%>'">
-                                <th><%=item._id%></th>
-                                <td><%=new Date(item.cdate).toLocaleString()%></td>
-                                <td><%=item.customer.name%></td>
-                                <td><%=item.customer.phone%></td>
-                                <td><%=item.total%></td>
-                                <td><%=item.status%></td>
-                              </tr>
+                                <tr class="datatable" onclick="window.location='./listcustomer?cid=<%=custID%>&oid=<%=item._id%>'">
+                                  <th><%=item._id%></th>
+                                  <td><%=new Date(item.cdate).toLocaleString()%></td>
+                                  <td><%=item.customer.name%></td>
+                                  <td><%=item.customer.phone%></td>
+                                  <td><%=item.total%></td>
+                                  <td><%=item.status%></td>
+                                </tr>
                               <%  } %>
                             </tbody>
                           </table>
