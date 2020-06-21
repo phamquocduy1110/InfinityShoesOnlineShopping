@@ -14,6 +14,8 @@
     <!-- iCheck -->
    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
+    <title>Admin | Update product</title>
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link href="../build/css/fontstyle.css" rel="stylesheet">
@@ -50,7 +52,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Add new product</small></h3>
+                <h3>Update product</small></h3>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5   form-group pull-right top_search">
@@ -62,37 +64,41 @@
             <div class="row" style="display: block;">
                   <div class="x_content">
                     <div class="table-responsive">
-                      <form method="POST" enctype="multipart/form-data">
+                      <form method="POST" action="/admin/updateproduct" enctype="multipart/form-data">
                         <table class="table table-striped jambo_table bulk_action">
                           <thead>
                             <tr class="headings">
                               <p>ID</p>
-                              <input type="text" id="txtID" name="txtID" placeholder="This id field is automatically" readonly />
+                              <input type="text" value="<%=prods._id%>" id="txtID" name="txtID" placeholder="This id field is automatically" readonly />
                               <p>Name</p>
-                              <input type="text" id="txtName" name="txtName" placeholder="Enter name product" required>
+                              <input type="text" value="<%=prods.Name%>" id="txtName" name="txtName" placeholder="Enter name product" required>
                               <p>Basic information</p>
-                              <input type="text" id="txtBasicInformation" name="txtBasicInformation" placeholder="Enter information of product" required>
+                              <input type="text" value="<%=prods.BasicInformation%>" id="txtBasicInformation" name="txtBasicInformation" placeholder="Enter information of product" required>
                               <p>Price</p>
-                              <a>$</a><input type="text" id="txtPrice" name="txtPrice" placeholder="Enter price" required >
+                              <input type="text" value="<%=prods.Price%>" id="txtPrice" name="txtPrice" placeholder="Enter price" required >
                               <p>Size</p>
-                              <input type="text" id="txtPrice" name="txtSize" placeholder="Enter size" required>
+                              <input type="text" value="<%=prods.Size%>" id="txtPrice" name="txtSize" placeholder="Enter size" required>
                               <p>Category</p>
                               <select id="cmbCategory" name="cmbCategory" required>
                                 <%  for (var item of categories) {  %>
-                                <option value="<%=item._id%>"><%=item.Name%></option>
-                                <%  } %> 
+                                  <% if (item.Name === prods.category.Name) { %>
+                                    <option value="<%=item._id%>" selected><%=item.Name%></option>
+                                  <% } else { %>
+                                    <option value="<%=item._id%>"><%=item.Name%></option>
+                                  <% } %>
+                                <%  } %>
                               </select>
                               <p>Brand</p>
-                              <input type="text" id="txtBrand" name="txtBrand" placeholder="Enter brand if product" required>
+                              <input type="text" value="<%=prods.Brand%>" id="txtBrand" name="txtBrand" placeholder="Enter brand if product" required>
                               <p>Product ID</p>
-                              <input type="text" id="txtProductID" name="txtProductID" placeholder="Enter product ID" required>
+                              <input type="text" value="<%=prods.ProductID%>" id="txtProductID" name="txtProductID" placeholder="Enter product ID" required>
                               <p>Image</p>
-                              <input type="file" name="fileImage" accept="image/jpeg, image/png, image/gif" onchange="previewImage(this)" />
+                              <input type="file" value="<%=prods.image%>" name="fileImage" accept="image/jpeg, image/png, image/gif" onchange="previewImage(this)" />
                               <p colspan="2"><img id="imgProduct" width="300" height="300" /></p>
                             </tr>
                           </thead>
                         </table>
-                        <input type="submit" value="Add product" /> | <a href="./listproduct"><input type="button" value="Back to product list" /></a>
+                        <input type="submit" value="Update" /> | <a href="./listproduct"><input type="button" value="Back to product list" /></a>
                       </form>                    
                     </div>						
                   </div>

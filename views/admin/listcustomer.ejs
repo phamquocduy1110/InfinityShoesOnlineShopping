@@ -1,98 +1,181 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | Customer Order</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+   <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
-<head>
-  <link href="/css/styles.css" type="text/css" rel="stylesheet" />
-</head>
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+  </head>
 
-<body class="admin">
-  <%- include('./_menu.ejs') %>
-  <%  if (custs) { %>
-  <div class="align-center">
-    <h2 class="text-center">CUSTOMER LIST</h2>
-    <table class="datatable" border="1">
-      <tr class="datatable">
-        <th>ID</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Active</th>
-        <th>Action</th>
-      </tr>
-      <%  for (var item of custs) { %>
-      <tr class="datatable" onclick="window.location='./listcustomer?cid=<%=item._id%>'">
-        <th><%=item._id%></th>
-        <td><%=item.username%></td>
-        <td><%=item.password%></td>
-        <td><%=item.name%></td>
-        <td><%=item.phone%></td>
-        <td><%=item.email%></td>
-        <td><%=item.active%></td>
-        <td>
-          <% if (item.active == 0) { %>
-          <a href="./sendmail?id=<%=item._id%>">EMAIL</a>
-          <% } else if (item.active == 1) { %>
-          <a href="./deactive?id=<%=item._id%>&token=<%=item.token%>" onclick="return confirm('ARE YOU SURE?')">DEACTIVE</a>
-          <% } %>
-        </td>
-      </tr>
-      <%  } %>
-    </table>
-  </div>
-  <%  } %>
-  <%  if (orders) { %>
-  <div class="align-center">
-    <h2 class="text-center">ORDER LIST</h2>
-    <table class="datatable" border="1">
-      <tr class="datatable">
-        <th>ID</th>
-        <th>Creation date</th>
-        <th>Cust.name</th>
-        <th>Cust.phone</th>
-        <th>Total</th>
-        <th>Status</th>
-      </tr>
-      <%  for (var item of orders) { %>
-      <tr class="datatable" onclick="window.location='./listcustomer?cid=<%=custID%>&oid=<%=item._id%>'">
-        <th><%=item._id%></th>
-        <td><%=new Date(item.cdate).toLocaleString()%></td>
-        <td><%=item.customer.name%></td>
-        <td><%=item.customer.phone%></td>
-        <td><%=item.total%></td>
-        <td><%=item.status%></td>
-      </tr>
-      <%  } %>
-    </table>
-  </div>
-  <%  } %>
-  <%  if (order) { %>
-  <div class="align-center">
-    <h2 class="text-center">ORDER DETAIL</h2>
-    <table class="datatable" border="1">
-      <tr class="datatable">
-        <th>No.</th>
-        <th>Prod.ID</th>
-        <th>Prod.name</th>
-        <th>Image</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Amount</th>
-      </tr>
-      <%  for (var [i, item] of order.items.entries()) {  %>
-      <tr class="datatable">
-        <td><%=(i+1)%></td>
-        <td><%=item.product._id%></td>
-        <td><%=item.product.name%></td>
-        <td><img src="data:image/jpg;base64,<%=item.product.image%>" width="70" height="70" /></td>
-        <td><%=item.product.price%></td>
-        <td><%=item.quantity%></td>
-        <td><%=item.product.price * item.quantity%></td>
-      </tr>
-      <%  } %>
-    </table>
-  </div>
-  <%  } %>
-</body>
+  <body class="nav-md">
+    <%- include('./_menuleft.ejs') %>
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Customer Order</small></h3>
+              </div>
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row" style="display: block;">
+                  <div class="x_content">
+                    <div class="table-responsive">
+                      <%  if (custs) { %>
+                        <div class="align-center">
+                          <h2 class="text-center">CUSTOMER LIST</h2>
+                          <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                              <tr class="datatable">
+                                <th class="column-title">ID</th>
+                                <th class="column-title">Username</th>
+                                <th class="column-title">Password</th>
+                                <th class="column-title">Name</th>
+                                <th class="column-title">Phone</th>
+                                <th class="column-title">Email</th>
+                                <th class="column-title">Active</th>
+                                <th class="column-title">Action</th>
+                              </tr>
+                            </thead>
 
+                            <tbody>
+                              <%  for (var item of custs) { %>
+                                <tr class="datatable" onclick="window.location='./orderdetails?cid=<%=item._id%>'">
+                                  <th><%=item._id%></th>
+                                  <td><%=item.username%></td>
+                                  <td><%=item.password%></td>
+                                  <td><%=item.name%></td>
+                                  <td><%=item.phone%></td>
+                                  <td><%=item.email%></td>
+                                  <td><%=item.active%></td>
+                                  <td>
+                                    <% if (item.active == 0) { %>
+                                    <a href="./sendmail?id=<%=item._id%>">EMAIL</a>
+                                    <% } else if (item.active == 1) { %>
+                                    <a href="./deactive?id=<%=item._id%>&token=<%=item.token%>" onclick="return confirm('ARE YOU SURE?')">DEACTIVE</a>
+                                    <% } %>
+                                  </td>
+                                </tr>
+                              <%  } %>
+                            </tbody>
+                          </table>
+                        </div>
+                      <%  } %>
+
+                      <%  if (orders) { %>
+                        <div class="align-center">
+                          <h2 class="text-center">ORDER LIST</h2>
+                          <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                              <tr class="datatable">
+                                <th>ID</th>
+                                <th>Creation date</th>
+                                <th>Cust.name</th>
+                                <th>Cust.phone</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <%  for (var item of orders) { %>
+                              <tr class="datatable" onclick="window.location='./listcustomer?cid=<%=custID%>&oid=<%=item._id%>'">
+                                <th><%=item._id%></th>
+                                <td><%=new Date(item.cdate).toLocaleString()%></td>
+                                <td><%=item.customer.name%></td>
+                                <td><%=item.customer.phone%></td>
+                                <td><%=item.total%></td>
+                                <td><%=item.status%></td>
+                              </tr>
+                              <%  } %>
+                            </tbody>
+                          </table>
+                        </div>
+                      <%  } %>
+
+                      <%  if (order) { %>
+                        <div class="align-center">
+                          <h2 class="text-center">ORDER DETAIL</h2>
+                          <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                              <tr class="datatable">
+                                <th>No.</th>
+                                <th>Prod.ID</th>
+                                <th>Prod.name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <%  for (var [i, item] of order.items.entries()) {  %>
+                              <tr class="datatable">
+                                <td><%=(i+1)%></td>
+                                <td><%=item.product._id%></td>
+                                <td><%=item.product.name%></td>
+                                <td><img src="data:image/jpg;base64,<%=item.product.image%>" width="70" height="70" /></td>
+                                <td><%=item.product.price%></td>
+                                <td><%=item.quantity%></td>
+                                <td><%=item.product.price * item.quantity%></td>
+                              </tr>
+                              <%  } %>
+                            </tbody>
+                          </table>
+                        </div>
+                        <%  } %>
+                    </div>						
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+  </body>
 </html>

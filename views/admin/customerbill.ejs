@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Order List</title>
+    <title>Admin | Customer List</title>
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -27,7 +27,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Order List</small></h3>
+                <h3>Customer List</small></h3>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5   form-group pull-right top_search">
@@ -53,32 +53,23 @@
                             <th class="column-title">Cust.phone</th>
                             <th class="column-title">Total</th>
                             <th class="column-title">Status</th>
-                            <th class="column-title">Action</th>
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                             </th>
                           </tr>
                         </thead>
 
                         <tbody>
-                          <%  if (orders) { %>
-                            <%  for (var item of orders) { %>
-                              <tr class="datatable" onclick="window.location='./orderdetails?id=<%=item._id%>'">
+                            <%  if (orders) { %>
+                                <%  for (var item of orders) { %>
+                                <tr class="datatable" onclick="window.location='./listcustomer?cid=<%=custID%>&oid=<%=item._id%>'">
                                 <th><%=item._id%></th>
                                 <td><%=new Date(item.cdate).toLocaleString()%></td>
                                 <td><%=item.customer.name%></td>
                                 <td><%=item.customer.phone%></td>
                                 <td><%=item.total%></td>
                                 <td><%=item.status%></td>
-                                <td>
-                                  <%  if (item.status == 'PENDING') {  %>
-                                  <a href="./updatestatus?status=APPROVED&id=<%=item._id%>">APPROVE</a>
-                                  ||
-                                  <a href="./updatestatus?status=CANCELED&id=<%=item._id%>">CANCEL</a>
-                                  <%  } %>
-                                </td>
-                              </tr>
+                                <%  } %>
                             <%  } %>
-                          <%  } %>
                         </tbody>
                       </table>
                     </div>						

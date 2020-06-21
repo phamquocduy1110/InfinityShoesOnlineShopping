@@ -6,9 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
-
+    <title>Admin | List product</title>
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -30,7 +28,7 @@
             <div class="page-title">
               <div class="title_left">
                 <h3>Product List</small></h3>
-                <li><a href="./addproduct" style="text-align: center;">Add new product</a></li>
+                <li><a style="font-size: 15px;" href="./addproduct" style="text-align: center;">Add new product</a></li>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5   form-group pull-right top_search">
@@ -49,21 +47,21 @@
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
-                          <tr class="headings">
-                            <th>
-                              <input type="checkbox" id="check-all" class="flat">
-                            </th>
+                          <tr class="datatable">
                             <th class="column-title">ID </th>
                             <th class="column-title">Name</th>
                             <th class="column-title">Basic information</th>
                             <th class="column-title">Price</th>
                             <th class="column-title">Size </th>
+                            <th class="column-title">Date</th>
                             <th class="column-title">Category </th>
                             <th class="column-title">Brand </th>
-                            <th class="column-title">Product ID </th>
+                            <th class="column-title">ProductID </th>
+                            <th class="column-title">Image</th>
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                             </th>
+                            <th class="column-title no-link last"><span class="nobr">Action</span>
                           </tr>
                         </thead>
 
@@ -78,21 +76,35 @@
                               '<%=item.category.id%>',
                               '<%=item.Brand%>',
                               '<%=item.ProductID%>',
+                              '<%=item.image%>'
                               )">
-                              <td class="a-center ">
-                                <input type="checkbox" class="flat" name="table_records">
-                              </td>
                               <th><%=item._id%></th>
                               <td><%=item.Name%></td>
                               <td><%=item.BasicInformation%></td>
                               <td><%=item.Price%></td>
                               <td><%=item.Size%></td>
-                              <td><%=item.category.name%></td>
+                              <td><%=new Date(item.cdate).toLocaleString()%></td>
+                              <td><%=item.category.Name%></td>
                               <td><%=item.Brand%></td>
                               <td><%=item.ProductID%></td>
+                              <td><img src="data:image/jpg;base64,<%=item.image%>" width="100" height="100" /></td>
+                              <td>
+                                <a href='./updateproduct?id=<%=item._id%>' style="text-align: center;">Update</a>
+                                <a href='./deleteproduct?id=<%=item._id%>' onclick='return confirm("Do you want to delete? Confirm if you want to do it.")'>Delete</a>
+                              </td>
                             </tr>
-                          <%  } %>                      
+                          <%  } %>
+                          <tr>
+                            <td colspan="11">
+                              <%  for (var index = 1; index <= noPages; index++) {
+                                    if (index == curPage) { %>
+                              | <b><%=index%></b> |
+                              <%    } else {  %>
+                              | <a href="./listproduct?page=<%=index%>"><%=index%></a> |
+                              <%    } } %>
+                            </td>
                         </tbody>
+                        </tr>
                       </table>
                     </div>						
                   </div>
@@ -121,7 +133,6 @@
     <script src="../vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
   </body>

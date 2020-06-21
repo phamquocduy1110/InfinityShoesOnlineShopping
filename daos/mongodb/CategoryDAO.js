@@ -20,7 +20,7 @@ var CategoryDAO = {
   },
   async update(category) {
     var query = { _id: ObjectId(category._id) };
-    var newvalues = { $set: { name: category.name } };
+    var newvalues = { $set: { Name: category.Name } };
     var db = await client.getDB();
     var result = await db.collection("categories").updateOne(query, newvalues);
     return result.result.nModified > 0 ? true : false;

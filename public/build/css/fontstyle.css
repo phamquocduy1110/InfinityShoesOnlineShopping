@@ -7,7 +7,7 @@ p {
 input[type="text"] {
     margin-bottom: 16px;
     font-size: large;
-    width: 50%;
+    width: 90%;
 }
 
 select {
@@ -16,9 +16,16 @@ select {
 }
 
 h3 {
-    font-size: 30px;
 }
 
 input[type="submit"] {
+    font-size: 16px;
+}
+
+input[type="button"] {
+    font-size: 16px;
+}
+
+input[type="file"] {
     font-size: 16px;
 }

@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Admin | List category</title>
-
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -20,64 +16,50 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-  </head>
+    <link href="../build/css/fontstyle.css" rel="stylesheet">
 
+    <script>
+      function details(id, name) {
+        document.getElementById("txtID").value = id;
+        document.getElementById("txtName").value = name;
+        document.getElementById("btnUpdate").style.display = "inline";
+        document.getElementById("btnDelete").style.display = "inline";
+      }
+    </script>
+  </head>
   <body class="nav-md">
     <%- include('./_menuleft.ejs') %>
+        <!-- /top navigation -->
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Category List</small></h3>
-                <li><a style="font-size:15px;" href="./addcategory" style="text-align: center;">Add new category</a></li>
+                <h3>Update category</small></h3>
               </div>
-
               <div class="title_right">
                 <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="clearfix"></div>
-              <div class="row" style="display: block;">
+            <div class="row" style="display: block;">
                   <div class="x_content">
                     <div class="table-responsive">
-                      <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                          <tr class="headings">
-                            <th class="column-title">ID </th>
-                            <th class="column-title">Name</th>
-                            <th class="column-title no-link last"><span class="nobr">Action</span>
-                            </th>
-                            <th class="bulk-actions" colspan="7">
-                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          <%  for (var item of cats) {  %>
-                            <tr class="datatable" onclick="details(
-                              '<%=item._id%>', 
-                              '<%=item.name%>' 
-                              )">
-                              <th><%=item._id%></th>
-                              <td><%=item.Name%></td>
-                              <td>
-                                <a href='./updatecategory?id=<%=item._id%>' style="text-align: center;">Update</a>
-                                ||
-                                <a href='./deletecategory?id=<%=item._id%>' onclick='return confirm("Are you sure want to delete? Confirm if you want to do it.")'>Delete</a>
-                              </td>                            
+                      <form method="POST" action="/admin/updatecategory">
+                        <table class="table table-striped jambo_table bulk_action">
+                          <thead>
+                            <tr class="headings">
+                              <p>ID</p>
+                              <input type="text" value="<%=cats._id%>" id="txtID" name="txtID" readonly />
+                              <p>Name</p>
+                              <input type="text" value="<%=cats.Name%>" id="txtName" name="txtName" placeholder="Enter name category" required>
                             </tr>
-                          <%  } %>
-                        </tbody>
-                      </table>
+                          </thead>
+                        </table>
+                        <input type="submit" value="Update" /> | <a href="./listcategory"><input type="button" value="Back to category list" /></a>
+                      </form>                    
                     </div>						
                   </div>
                 </div>

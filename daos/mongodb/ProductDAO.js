@@ -56,7 +56,7 @@ var ProductDAO = {
   },
   async update(product) {
     var query = { _id: ObjectId(product._id) };
-    var newvalues = { $set: { name: product.name, price: product.price, image: product.image, category: product.category } };
+    var newvalues = { $set: { Name: product.Name, BasicInformation: product.BasicInformation, Price: product.Price, Size: product.Size, category: product.category, Brand: product.Brand, ProductID: product.ProductID, image: product.image } };
     var db = await client.getDB();
     var result = await db.collection("products").updateOne(query, newvalues);
     return result.result.nModified > 0 ? true : false;

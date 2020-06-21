@@ -34,7 +34,7 @@ router.post('/login', async function (req, res) {
     req.session.admin = admin;
     res.redirect('./home');
   } else {
-    MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './login');
+    MyUtil.showAlertAndRedirect(res, 'The username or password incorrect. Please check it again', './login');
   }
 });
 router.get('/logout', function (req, res) {
@@ -48,32 +48,34 @@ router.get('/listcategory', async function (req, res) {
 });
 router.post('/addcategory', async function (req, res) {
   var name = req.body.txtName;
-  var category = { name: name };
-  var result = await CategoryDAO.insert(category);
+  var categories = { Name: name };
+  var result = await CategoryDAO.insert(categories);
   if (result) {
-    MyUtil.showAlertAndRedirect(res, 'OK BABY!', './listcategory');
+    MyUtil.showAlertAndRedirect(res, 'The category has been added successfully!', './listcategory');
   } else {
-    MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './listcategory');
+    MyUtil.showAlertAndRedirect(res, 'Error! Can not add new category', './listcategory');
   }
 });
 router.post('/updatecategory', async function (req, res) {
   var _id = req.body.txtID;
   var name = req.body.txtName;
-  var category = { _id: _id, name: name };
+  //console.log(typeof _id, typeof name);  //debug
+  //console.log(_id, name);
+  var category = { _id: _id, Name: name };
   var result = await CategoryDAO.update(category);
   if (result) {
-    MyUtil.showAlertAndRedirect(res, 'OK BABY!', './listcategory');
+    MyUtil.showAlertAndRedirect(res, 'Category has been updated successfully!', './listcategory');
   } else {
-    MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './listcategory');
+    MyUtil.showAlertAndRedirect(res, 'Update failed', './listcategory');
   }
 });
-router.post('/deletecategory', async function (req, res) {
-  var _id = req.body.txtID;
+router.get('/deletecategory', async function (req, res) {
+  var _id = req.query.id;
   var result = await CategoryDAO.delete(_id);
   if (result) {
-    MyUtil.showAlertAndRedirect(res, 'OK BABY!', './listcategory');
+    MyUtil.showAlertAndRedirect(res, 'Category has been deleted successfully!', './listcategory');
   } else {
-    MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './listcategory');
+    MyUtil.showAlertAndRedirect(res, 'Can not delete the category', './listcategory');
   }
 });
 // product
@@ -90,33 +92,36 @@ router.get('/listproduct', async function (req, res) {
   var offset = (curPage - 1) * sizePage;
   products = products.slice(offset, offset + sizePage);
   // render view
-  res.render('../views/admin/listproduct.ejs', { prods: products, noPages: noPages, curPage: curPage });
-});
-
-router.get('/addproduct', async function (req, res) {
-  var categories = await CategoryDAO.selectAll();
-  res.render('admin/addproduct', {categories});
+  res.render('../views/admin/listproduct.ejs', { cats: categories, prods: products, noPages: noPages, curPage: curPage });
 });
 
 router.post('/addproduct', upload.single('fileImage'), async function (req, res) {
   var name = req.body.txtName;
+  var basicinformation = req.body.txtBasicInformation;
   var price = parseInt(req.body.txtPrice);
+  var size = parseInt(req.body.txtSize);
   var catID = req.body.cmbCategory;
+  var brand = req.body.txtBrand;
+  var productid = req.body.txtProductID;
   if (req.file) {
     var image = req.file.buffer.toString('base64');
     var now = new Date().getTime(); // milliseconds
     var category = await CategoryDAO.selectByID(catID);
-    var product = { name: name, price: price, image: image, cdate: now, category: category };
+    var product = { Name: name, BasicInformation: basicinformation, Price: price, Size: size, category: category, Brand: brand, ProductID: productid, image: image};
     var result = await ProductDAO.insert(product);
-    if (result) MyUtil.showAlertAndRedirect(res, 'OK BABY!', './listproduct');
+    if (result) MyUtil.showAlertAndRedirect(res, 'The product has been added successfully!', './listproduct');
   }
-  MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './listproduct');
+  MyUtil.showAlertAndRedirect(res, 'Error! Can not add new category', './listproduct');
 });
 router.post('/updateproduct', upload.single('fileImage'), async function (req, res) {
   var _id = req.body.txtID;
   var name = req.body.txtName;
+  var basicinformation = req.body.txtBasicInformation;
   var price = parseInt(req.body.txtPrice);
+  var size = parseInt(req.body.txtSize);
   var catID = req.body.cmbCategory;
+  var brand = req.body.txtBrand;
+  var productid = req.body.txtProductID;
   if (req.file) {
     var image = req.file.buffer.toString('base64');
   } else {
@@ -125,21 +130,21 @@ router.post('/updateproduct', upload.single('fileImage'), async function (req, r
   }
   var now = new Date().getTime(); // milliseconds
   var category = await CategoryDAO.selectByID(catID);
-  var product = { _id: _id, name: name, price: price, image: image, cdate: now, category: category };
+  var product = { _id: _id, Name: name, BasicInformation: basicinformation, Price: price, Size: size, category: category, Brand: brand, ProductID: productid, image: image, cdate: now};
   var result = await ProductDAO.update(product);
   if (result) {
-    MyUtil.showAlertAndRedirect(res, 'OK BABY!', './listproduct');
+    MyUtil.showAlertAndRedirect(res, 'The product has been updated successfully!', './listproduct');
   } else {
-    MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './listproduct');
+    MyUtil.showAlertAndRedirect(res, 'Update failed!', './listproduct');
   }
 });
-router.post('/deleteproduct', upload.single('fileImage'), async function (req, res) {
-  var _id = req.body.txtID;
+router.get('/deleteproduct', upload.single('fileImage'), async function (req, res) {
+  var _id = req.query.id;
   var result = await ProductDAO.delete(_id);
   if (result) {
-    MyUtil.showAlertAndRedirect(res, 'OK BABY!', './listproduct');
+    MyUtil.showAlertAndRedirect(res, 'Delete successfully!', './listproduct');
   } else {
-    MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './listproduct');
+    MyUtil.showAlertAndRedirect(res, 'Can not delete this product!', './listproduct');
   }
 });
 // order
@@ -170,13 +175,47 @@ router.get('/listcustomer', async function (req, res) {
   }
   res.render('../views/admin/listcustomer.ejs', { custs: customers, orders: orders, order: order, custID: _cid });
 });
+
+router.get('/addproduct', async function (req, res) {
+  var categories = await CategoryDAO.selectAll();
+  res.render('admin/addproduct', {categories});
+});
+
+router.get('/addcategory', async function (req, res) {
+  var categories = await CategoryDAO.selectAll();
+  res.render('admin/addcategory', {categories});
+});
+
+router.get('/updatecategory', async function (req, res) {
+  var cats = await CategoryDAO.selectByID(req.query.id);
+  res.render('admin/updatecategory', {cats});
+});
+
+router.get('/updateproduct', async function (req, res) {
+  var categories = await CategoryDAO.selectAll();
+  var prods = await ProductDAO.selectByID(req.query.id);
+  res.render('admin/updateproduct', {prods, categories});
+});
+
+router.get('/orderdetails', async function (req, res) {
+  var categories = await OrderDAO.selectAll();
+  var orders = await OrderDAO.selectByCustID(req.query.id);
+  res.render('admin/orderdetails', {categories, orders});
+});
+
+router.get('/customerbill', async function (req, res) {
+  var categories = await CustomerDAO.selectAll();
+  var orders = await CustomerDAO.selectByID(req.query.cid, req.query.oid);
+  res.render('admin/customerbill', {categories, orders});
+});
+
 router.get('/sendmail', async function (req, res) {
   var _id = req.query.id; // /sendmail?id=XXX
   var cust = await CustomerDAO.selectByID(_id);
   if (cust) {
     var result = await EmailUtil.send(cust.email, cust._id, cust.token);
     if (result) {
-      MyUtil.showAlertAndRedirect(res, 'CHECK EMAIL!', './listcustomer');
+      MyUtil.showAlertAndRedirect(res, 'A message has been sent to your email. Please check the inbox', './listcustomer');
     } else {
       MyUtil.showAlertAndRedirect(res, 'EMAIL FAILURE!', './listcustomer');
     }
@@ -189,9 +228,9 @@ router.get('/deactive', async function (req, res) {
   var token = req.query.token;
   var result = await CustomerDAO.active(_id, token, 0);
   if (result) {
-    MyUtil.showAlertAndRedirect(res, 'OK BABY!', './listcustomer');
+    MyUtil.showAlertAndRedirect(res, 'Deactive successfully!', './listcustomer');
   } else {
-    MyUtil.showAlertAndRedirect(res, 'SORRY BABY!', './listcustomer');
+    MyUtil.showAlertAndRedirect(res, 'Deactive failed!', './listcustomer');
   }
 });
 module.exports = router;
