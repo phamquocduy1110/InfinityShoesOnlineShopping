@@ -12,7 +12,7 @@
     "init": "^0.1.2",
     "mongodb": "^3.7.4",
     "mongoose": "^8.9.5",
-    "multer": "^2.0.1",
+    "multer": "^2.0.2",
     "nodemailer": "^6.9.9"
   },
   "devDependencies": {},
