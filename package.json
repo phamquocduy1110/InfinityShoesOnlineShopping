@@ -13,7 +13,7 @@
     "mongodb": "^3.7.4",
     "mongoose": "^8.9.5",
     "multer": "^2.0.2",
-    "nodemailer": "^6.9.9"
+    "nodemailer": "^7.0.7"
   },
   "devDependencies": {},
   "scripts": {
